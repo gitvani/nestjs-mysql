@@ -2,6 +2,10 @@
 
 A CRUD REST API using the NestJS framework and MySQL.
 
+# Setup:
+
+Change MySQL connection configuration on `app.module.ts`.
+
 ## Installation
 
 ```bash
