@@ -6,32 +6,41 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PhotoController } from './photo/photo.controller';
 import { PhotoService } from './photo/photo.service';
 import { PhotoModule } from './photo/photo.module';
+import { Photo } from './photo/photo.entity';
+import { User } from './user/user.entity';
 
-// const defaultOptions = {
-//   type: 'mysql',
-//   host: 'localhost',
-//   port: 3306,
-//   username: 'root',
-//   password: 'Admin@123',
-//   synchronize: true,
-// };
+const defaultOptions: any = {
+  type: 'mysql',
+  host: 'localhost',
+  port: 3306,
+  username: 'root',
+  password: 'Admin@123',
+  synchronize: true,
+};
 
 @Module({
   imports: [
     PhotoModule,
     TypeOrmModule.forRoot(
       {
-        type: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: 'root',
-        password: 'Admin@123',
-        database: 'dulinow',
-        entities: [__dirname + '/**/*.entity{.ts,.js}', __dirname + '/**/**/*.entity{.ts,.js}'],
-        synchronize: true,
-      }
-    )],
+        ...defaultOptions,
+        database: 'photo',
+        entities: [Photo],
+      },
+    ),
+    TypeOrmModule.forRoot(
+      {
+        ...defaultOptions,
+        database: 'user',
+        entities: [User],
+      },
+    ),
+
+
+  ],
+
   controllers: [AppController],
+
   providers: [AppService],
 })
 export class AppModule { }
